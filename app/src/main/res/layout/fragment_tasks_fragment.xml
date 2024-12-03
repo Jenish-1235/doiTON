@@ -203,8 +203,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView2" />
-
-        <?xml version="1.0" encoding="utf-8"?>
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
             android:layout_marginStart="20dp"
