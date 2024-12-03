@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         tabLayout.selectTab(null)
-        tabLayout.getTabAt(0)!!.select()
+        tabLayout.getTabAt(2)!!.select()
 
     }
 }

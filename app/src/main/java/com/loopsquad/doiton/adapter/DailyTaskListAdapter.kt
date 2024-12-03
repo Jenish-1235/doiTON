@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ class DailyTaskListAdapter(context: Context, taskList: ArrayList<Task>): Recycle
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val taskName = view.findViewById<TextView>(R.id.taskName)
         val taskDescription = view.findViewById<TextView>(R.id.taskDescription)
+        val imageView = view.findViewById<ImageView>(R.id.taskIcon)
     }
 
     override fun onCreateViewHolder(
@@ -30,6 +32,8 @@ class DailyTaskListAdapter(context: Context, taskList: ArrayList<Task>): Recycle
     override fun onBindViewHolder(holder: DailyTaskListAdapter.ViewHolder, position: Int) {
         holder.taskName.text = taskList[position].taskName
         holder.taskDescription.text = taskList[position].taskDescription
+        holder.imageView.setImageResource(taskList[position].image)
+
         holder.itemView.setOnClickListener {
             Toast.makeText(context, taskList[position].taskName, Toast.LENGTH_SHORT).show()
         }
