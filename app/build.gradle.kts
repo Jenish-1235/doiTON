@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.loopsquad.doiton"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.loopsquad.doiton"
