@@ -11,6 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.tabs.TabLayout
+import com.loopsquad.doiton.fragments.home_fragment
+import com.loopsquad.doiton.fragments.nft_fragment
+import com.loopsquad.doiton.fragments.profile_fragments
+import com.loopsquad.doiton.fragments.tasks_fragment
+import com.loopsquad.doiton.fragments.teams_fragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,5 +83,54 @@ class MainActivity : AppCompatActivity() {
         profileTabIcon.setImageResource(R.drawable.ic_profile_white)
         profileTab.setCustomView(profileTabView)
         tabLayout.addTab(profileTab)
+
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                val position = tab!!.position
+                when(position){
+                    0 -> {
+                        val fragmentManager = supportFragmentManager
+                        val fragmentTransaction = fragmentManager.beginTransaction()
+                        fragmentTransaction.replace(R.id.fragmentContainer, home_fragment())
+                        fragmentTransaction.commit()
+                    }
+                    1 -> {
+                        val fragmentManager = supportFragmentManager
+                        val fragmentTransaction = fragmentManager.beginTransaction()
+                        fragmentTransaction.replace(R.id.fragmentContainer, nft_fragment())
+                        fragmentTransaction.commit()
+                    }
+                    2 -> {
+                        val fragmentManager = supportFragmentManager
+                        val fragmentTransaction = fragmentManager.beginTransaction()
+                        fragmentTransaction.replace(R.id.fragmentContainer, tasks_fragment())
+                        fragmentTransaction.commit()
+                    }
+                    3 -> {
+                        val fragmentManager = supportFragmentManager
+                        val fragmentTransaction = fragmentManager.beginTransaction()
+                        fragmentTransaction.replace(R.id.fragmentContainer, teams_fragment())
+                        fragmentTransaction.commit()
+                    }4 ->{
+                        val fragmentManager = supportFragmentManager
+                        val fragmentTransaction = fragmentManager.beginTransaction()
+                        fragmentTransaction.replace(R.id.fragmentContainer, profile_fragments())
+                        fragmentTransaction.commit()
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+        })
+
+        tabLayout.selectTab(null)
+        tabLayout.getTabAt(0)!!.select()
+
     }
 }
