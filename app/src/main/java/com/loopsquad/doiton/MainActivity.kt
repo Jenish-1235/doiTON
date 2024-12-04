@@ -1,11 +1,13 @@
 package com.loopsquad.doiton
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -27,7 +29,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        bottomTabLayoutFormation()
+
+        checkWalletAddress()
     }
 
     fun bottomTabLayoutFormation(){
@@ -128,9 +131,20 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-
         tabLayout.selectTab(null)
         tabLayout.getTabAt(2)!!.select()
-
     }
+
+    fun checkWalletAddress(){
+        val sharedPreference = getSharedPreferences("WalletAddress", MODE_PRIVATE)
+        val walletAddress = sharedPreference.getString("WalletAddress", null)
+        if(walletAddress == null){
+            val intent = Intent(this, WalletConnectActivity::class.java)
+            startActivity(intent)
+        }else{
+            bottomTabLayoutFormation()
+            Toast.makeText(this, "Wallet Address Found", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

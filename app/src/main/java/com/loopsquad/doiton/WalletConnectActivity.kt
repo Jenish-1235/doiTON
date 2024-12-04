@@ -1,14 +1,18 @@
 package com.loopsquad.doiton
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.webkit.JavascriptInterface
+import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,6 +22,7 @@ class WalletConnectActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
     private lateinit var sharedPreferences: SharedPreferences
+    private var intent2 = intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,16 +37,10 @@ class WalletConnectActivity : AppCompatActivity() {
 
         webView = findViewById(R.id.tonConnectWebView)
         sharedPreferences = getSharedPreferences("TON_Wallet_Prefs", MODE_PRIVATE)
-
-        // Enable JavaScript and DOM storage in WebView
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
+        webView.addJavascriptInterface(WebAppInterface(this),"Android")
 
-
-        // Add JavaScript interface to the WebView
-        webView.addJavascriptInterface(WebAppInterface(), "AndroidInterface")
-
-        // Set WebViewClient to handle redirects and loading
         webView.webViewClient = object : WebViewClient() {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
@@ -54,28 +53,22 @@ class WalletConnectActivity : AppCompatActivity() {
             }
         }
 
-        // Load the Ton Connect webpage
-        webView.loadUrl("https://elegant-conkies-fe557f.netlify.app/") // Replace with your URL
+        webView.webChromeClient = WebChromeClient()
+
+        webView.loadUrl("https://elegant-conkies-fe557f.netlify.app/")
+
     }
 
-    // JavaScript Interface to receive wallet address
-    private inner class WebAppInterface {
+    class WebAppInterface(private val mContext: Context) {
         @JavascriptInterface
-        fun saveWalletAddress(walletAddress: String) {
-            Log.d("WalletConnect1235", "Received wallet address: $walletAddress")
-
-            // Save the wallet address in SharedPreferences
+        fun showToast(toast: String) {
+            val sharedPreferences = mContext.getSharedPreferences("WalletAddress", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
-            editor.putString("wallet_address", walletAddress)
+            editor.putString("WalletAddress", toast)
             editor.apply()
-
-            Log.d("WalletConnect1235", "Wallet address saved in SharedPreferences.")
-
-            val intent = Intent(this@WalletConnectActivity, MainActivity::class.java)
-            startActivity(intent)
-
-            // Finish WalletConnectActivity so it no longer remains in the back stack
-            finish()
+            val mainActivity = Intent(mContext, MainActivity::class.java)
+            mContext.startActivity(mainActivity)
+            Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show()
         }
     }
 }
