@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.loopsquad.doiton.R
 import com.loopsquad.doiton.adapter.DailyTaskListAdapter
 import com.loopsquad.doiton.models.Task
+import com.loopsquad.doiton.services.WalletInfoProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class home_fragment : Fragment() {
     override fun onCreateView(
@@ -53,6 +57,14 @@ class home_fragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
+        val newCoroutine = CoroutineScope(Dispatchers.IO).launch {
+
+            val sharedPreferences = requireContext().getSharedPreferences("WalletAddress", 0)
+            val walletAddress = sharedPreferences.getString("WalletAddress", "")
+            val walletInfoProvider = WalletInfoProvider()
+            walletInfoProvider.getAccountBalance(walletAddress!!)
+        }
+        newCoroutine.start()
 
         return view
     }
