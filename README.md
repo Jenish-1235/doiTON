@@ -16,10 +16,10 @@ doiTON is a location-based decentralized app (DApp) built on the TON blockchain.
 ---
 ### UI UX
 
-![adidas-removebg-preview](https://github.com/user-attachments/assets/20bbd84c-cd69-4af3-8283-2dfe417b3ef0)
 ![6](https://github.com/user-attachments/assets/5d675f4e-30a5-476e-9f08-892dcdd86e18)
-![2](https://github.com/user-attachments/assets/8c078aa3-f545-44e5-9781-03371eca18e5)
+
 ![1](https://github.com/user-attachments/assets/f5d2db24-46a1-44e1-a4d3-b5d2d28fc0ca)
+![adidas-removebg-preview](https://github.com/user-attachments/assets/20bbd84c-cd69-4af3-8283-2dfe417b3ef0)
 ![5](https://github.com/user-attachments/assets/4457cd51-ba75-43d7-baad-2854fc12e930)
 ![3](https://github.com/user-attachments/assets/0dd95446-1df3-48e8-828f-7426c6ed9966)
 
